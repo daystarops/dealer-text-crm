@@ -1,0 +1,22 @@
+# Cloud copy of the text CRM on Fly.io. One machine only: the SQLite database is on its volume.
+# Deploy: fly deploy --ha=false. Settings and keys are Fly secrets (TEXTCRM_JSON, QUO_API_KEY).
+app = "textcrm-premier"
+primary_region = "ewr"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[mounts]
+  source = "textcrm_private"
+  destination = "/app/private"
+
+[http_service]
+  internal_port = 8787
+  force_https = true
+  auto_stop_machines = "off"
+  auto_start_machines = true
+  min_machines_running = 1
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "512mb"  # room for a Codex reply draft alongside the server

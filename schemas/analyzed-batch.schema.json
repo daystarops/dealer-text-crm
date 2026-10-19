@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Validated CDK lead analysis",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["run_id", "ranked_leads"],
+  "properties": {
+    "run_id": {"type": "string", "minLength": 1, "pattern": "^cdk-[0-9]{8}T[0-9]{6}-[a-f0-9]{8}$"},
+    "ranked_leads": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["lead_key", "first_name", "priority_score", "supporting_evidence", "latest_explicit_customer_position", "main_obstacle", "recommended_next_action", "call_opening", "discovery_questions", "objections", "voicemail", "follow_up_text", "appointment_close", "human_handoff_flags", "messaging_risk_flags"],
+        "properties": {
+          "lead_key": {"type": "string", "minLength": 64, "maxLength": 64, "pattern": "^[a-f0-9]{64}$"},
+          "first_name": {"type": "string", "minLength": 1, "pattern": ".*\\S.*"},
+          "priority_score": {"type": "integer", "minimum": 0, "maximum": 100},
+          "supporting_evidence": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1, "pattern": ".*\\S.*"}},
+          "latest_explicit_customer_position": {"type": "string", "minLength": 1, "pattern": ".*\\S.*"},
+          "main_obstacle": {"type": "string", "minLength": 1, "pattern": ".*\\S.*"},
+          "recommended_next_action": {"type": "string", "minLength": 1, "pattern": ".*\\S.*"},
+          "call_opening": {"type": "string", "minLength": 1, "pattern": ".*\\S.*"},
+          "discovery_questions": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"type": "string", "minLength": 1, "pattern": ".*\\S.*"}},
+          "objections": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["objection", "response"],
+              "properties": {
+                "objection": {"type": "string", "minLength": 1, "pattern": ".*\\S.*"},
+                "response": {"type": "string", "minLength": 1, "pattern": ".*\\S.*"}
+              }
+            }
+          },
+          "voicemail": {"type": "string", "minLength": 1, "pattern": ".*\\S.*"},
+          "follow_up_text": {"type": "string", "minLength": 1, "pattern": ".*\\S.*", "maxLength": 320},
+          "appointment_close": {"type": "string", "minLength": 1, "pattern": ".*\\S.*"},
+          "human_handoff_flags": {"type": "array", "items": {"type": "string", "minLength": 1, "pattern": ".*\\S.*"}},
+          "messaging_risk_flags": {"type": "array", "items": {"type": "string", "minLength": 1, "pattern": ".*\\S.*"}}
+        }
+      }
+    }
+  }
+}

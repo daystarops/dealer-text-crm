@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/schemas/lead-review.schema.json",
+  "title": "CDK Lead Review Batch",
+  "description": "Privacy-safe structured output for a configurable batch of read-only CRM lead reviews.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["as_of_date", "search_period", "batch_size", "leads"],
+  "properties": {
+    "as_of_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "search_period": {
+      "type": "string"
+    },
+    "batch_size": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "leads": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/leadReview" }
+    }
+  },
+  "$defs": {
+    "leadReview": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "lead_label",
+        "vehicle",
+        "lead_age_days",
+        "lead_source",
+        "buying_signals",
+        "obstacle",
+        "appointment_status",
+        "last_meaningful_contact",
+        "recommended_action",
+        "priority_score",
+        "call_brief"
+      ],
+      "properties": {
+        "lead_label": { "type": "string", "minLength": 1 },
+        "vehicle": { "type": "string" },
+        "lead_age_days": { "type": "integer", "minimum": 0 },
+        "lead_source": { "type": "string" },
+        "buying_signals": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "obstacle": { "type": "string" },
+        "appointment_status": { "type": "string" },
+        "last_meaningful_contact": { "type": "string" },
+        "recommended_action": { "type": "string" },
+        "priority_score": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "call_brief": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "opening_15_seconds",
+            "reason_for_calling",
+            "discovery_questions",
+            "vehicle_or_payment_angle",
+            "objections",
+            "voicemail",
+            "follow_up_text",
+            "appointment_close"
+          ],
+          "properties": {
+            "opening_15_seconds": { "type": "string" },
+            "reason_for_calling": { "type": "string" },
+            "discovery_questions": {
+              "type": "array",
+              "minItems": 3,
+              "maxItems": 3,
+              "items": { "type": "string" }
+            },
+            "vehicle_or_payment_angle": { "type": "string" },
+            "objections": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["objection", "response"],
+                "properties": {
+                  "objection": { "type": "string" },
+                  "response": { "type": "string" }
+                }
+              }
+            },
+            "voicemail": { "type": "string" },
+            "follow_up_text": { "type": "string", "maxLength": 320 },
+            "appointment_close": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}
+

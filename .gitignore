@@ -1,0 +1,59 @@
+# Secrets and local environment
+# Optional Laminar configuration remains local; observability is disabled by default.
+# LMNR_PROJECT_API_KEY=
+# CDK_OBSERVABILITY_ENABLED=false
+.env
+.env.*
+credentials/
+credentials.*
+*credential*
+*.pem
+*.key
+
+# Browser state
+cookies/
+cookies.*
+*cookies*.json
+browser-profile/
+browser-profiles/
+chrome-profile/
+user-data-dir/
+
+# Operational artifacts (retain placeholders)
+outputs/*
+!outputs/.gitkeep
+logs/*
+!logs/.gitkeep
+recordings/*
+!recordings/.gitkeep
+private/*
+!private/.gitkeep
+
+# Screenshots and exports
+screenshots/
+*screenshot*
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.csv
+*.tsv
+*customer-data*
+*customer_data*
+*crm-export*
+*crm_export*
+
+# Python, editor, and OS noise
+__pycache__/
+*.py[cod]
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Launcher build artifacts
+build/
+dist/
+*.spec
+
+.venv/

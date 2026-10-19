@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Sanitized CDK analysis payload",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["run_id", "extracted_at", "as_of_date", "search_period", "batch_size", "reviewed_count", "leads"],
+  "properties": {
+    "run_id": {"type": "string", "minLength": 1, "pattern": "^cdk-[0-9]{8}T[0-9]{6}-[a-f0-9]{8}$"},
+    "extracted_at": {"type": "string", "minLength": 1},
+    "as_of_date": {"type": "string", "minLength": 10},
+    "search_period": {"type": "object", "additionalProperties": false, "required": ["period", "start_date", "end_date", "refresh_confirmed"], "properties": {"period": {"const": "All"}, "start_date": {"type": "string"}, "end_date": {"type": "string"}, "refresh_confirmed": {"const": true}}},
+    "batch_size": {"type": "integer", "minimum": 1},
+    "reviewed_count": {"type": "integer", "minimum": 1},
+    "leads": {"type": "array", "items": {"type": "object", "additionalProperties": false,
+      "required": ["lead_key", "first_name", "vehicle", "trade", "lead_age_days", "lead_source", "current_status", "latest_explicit_customer_statement", "last_meaningful_customer_response", "last_salesperson_contact", "communication_history", "appointment_or_showroom_history", "scheduled_tasks", "buying_signals", "main_obstacle", "crm_generated_summary"],
+      "properties": {
+        "lead_key": {"type": "string", "minLength": 64, "maxLength": 64, "pattern": "^[a-f0-9]{64}$"}, "first_name": {"type": "string", "minLength": 1, "pattern": ".*\\S.*"}, "vehicle": {"type": "string"},
+        "trade": {"type":"object","additionalProperties":false,"required":["submitted","year","make","model","approx_mileage"],"properties":{"submitted":{"type":"boolean"},"year":{"type":"string"},"make":{"type":"string"},"model":{"type":"string"},"approx_mileage":{"type":"string"}}},
+        "lead_age_days": {"type": "integer", "minimum": 0}, "lead_source": {"type": "string"}, "current_status": {"type": "string"},
+        "latest_explicit_customer_statement": {"type": "string"}, "last_meaningful_customer_response": {"type": "string"},
+        "last_salesperson_contact": {"type": "string"}, "communication_history": {"type": "array", "items": {"type": "string"}},
+        "appointment_or_showroom_history": {"type": "array", "items": {"type": "string"}}, "scheduled_tasks": {"type": "array", "items": {"type": "string"}},
+        "buying_signals": {"type": "array", "items": {"type": "string"}}, "main_obstacle": {"type": "string"}, "crm_generated_summary": {"type": "string"}
+      }
+    }}
+  }
+}

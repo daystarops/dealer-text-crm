@@ -1,0 +1,5 @@
+# The image only needs textcrm/. Everything else stays off the build server, customer data above all.
+*
+!textcrm/
+textcrm/__pycache__/
+textcrm/modal_app.py

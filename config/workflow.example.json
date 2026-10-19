@@ -1,0 +1,20 @@
+{
+  "batch_size": 5,
+  "search_period": "All",
+  "results_folder": "Active",
+  "read_only": true,
+  "refresh_after_filter_change": true,
+  "browser_timeout_seconds": 300,
+  "schema_timeout_seconds": 30,
+  "codex_timeout_seconds": 300,
+  "report_timeout_seconds": 60,
+  "identity_vault": "private/identity-vault.db",
+  "message_queue": "private/message-queue.db",
+  "sender_config": "private/personal-sender.json",
+  "default_automation_mode": "APPROVAL_QUEUE",
+  "extraction_schema": "schemas/extracted-batch.schema.json",
+  "analysis_schema": "schemas/analyzed-batch.schema.json",
+  "analysis_payload": "private/latest-batch.json",
+  "operational_report": "outputs/latest-operational-report.html",
+  "audit_report": "outputs/latest-audit-report.md"
+}
